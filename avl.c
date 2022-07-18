@@ -18,6 +18,15 @@ int liberaAVL(avl_t* avl){
     return 1;
 }
 
+void emOrdemPrint(nodo_t* nodo){
+    if(!nodo){
+        return;
+    }
+    emOrdemPrint(nodo->esq);
+    printf("%d %d\n", nodo->val, nodo->height);
+    emOrdemPrint(nodo->dir);
+}
+
 int liberaNodo(nodo_t* nodo){
     if(!nodo){
         return 0;
@@ -25,6 +34,31 @@ int liberaNodo(nodo_t* nodo){
     liberaNodo(nodo->esq);
     liberaNodo(nodo->dir);
     free(nodo);
+    return 1;
+}
+
+int balanInsert(nodo_t* nodo, nodo_t* raiz){
+    nodo_t* nodoAux = nodo->mom;
+    while(1){
+        if(!nodoAux->esq){
+            printf("nao existe esquerda\n");
+            if(nodoAux->dir->height > 0)
+                printf("balancear aqui em %d\n", nodoAux->val);
+        }
+        else if(!nodoAux->dir){
+            printf("nao existe direita\n");
+            if(nodoAux->esq->height > 0)
+                printf("balancear aqui em %d\n", nodoAux->val);
+        }
+        // else if(abs(nodo->esq->height - nodo->dir->height) > 1){
+        //     printf("balancear aqui em %d\n", nodo->val);
+        // }
+        if(nodoAux->mom){
+            nodoAux = nodoAux->mom;
+        }
+        else
+            break;
+    }
     return 1;
 }
 
@@ -66,6 +100,16 @@ int insertNodo(avl_t* avl, int value){
             }
         }
     }
-    
+    nodo_t* hNodo = currNodo;
+    int h = 0;
+    while(hNodo!=avl->root){
+        hNodo->height = h;
+        hNodo = hNodo->mom;
+        h++;
+    }
+    hNodo->height = h;
+    hNodo = hNodo->mom;
+
+    balanInsert(currNodo, avl->root);
     return 1;
 }

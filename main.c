@@ -1,18 +1,18 @@
 #include "avl.h"
-#include <unistd.h>
-#include <stdio.h>
+#include <time.h>
 
 int main(){
+    srand(time(0));
     avl_t* avl = touchAVL();
 
-    insertNodo(avl, 10);
-    insertNodo(avl, 8);
-    insertNodo(avl, 9);
-    insertNodo(avl, 7);
-    printf("%d\n", avl->root->val);
-    printf("%d\n", avl->root->esq->val);
-    printf("%d\n", avl->root->esq->dir->val);
-    printf("%d\n", avl->root->esq->esq->val);
+    for(int i = 0; i < 5; i++){
+        int k = random()%10;
+        printf("%d ", k);
+        insertNodo(avl, k);
+    }
+    printf("\n");
+    emOrdemPrint(avl->root);
+    printf("\n");
 
     liberaAVL(avl);
     return 0;

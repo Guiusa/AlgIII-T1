@@ -19,11 +19,15 @@ struct avl {
 };
 typedef struct avl avl_t;
 
-
 avl_t* touchAVL();
 int liberaAVL(avl_t* avl);
 
+
+int balanInsert(nodo_t* nodo, nodo_t* raiz);
+
+
 int insertNodo(avl_t* avl, int value);
 int liberaNodo(nodo_t* nodo);
+void emOrdemPrint(nodo_t* nodo);
 
 #endif
