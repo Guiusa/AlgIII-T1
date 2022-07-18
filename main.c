@@ -5,12 +5,15 @@ int main(){
     srand(time(0));
     bst_t* bst = touchBST();
 
-    for(int i = 0; i < 5; i++){
-        insertNodo(bst, i);
+    for(int i = 0; i< 100; i++){
+        insertNodo(bst, random()%100);
     }
-    if(!rmNodo(bst, 1)){
-        printf("não encontrado\n");
+    for(int i = 0; i<50; i++){
+        if(!rmNodo(bst, random()%100)){
+            printf("Valor não existe\n");
+        }
     }
+    
     printf("\n");
     emOrdemPrint(bst->root);
     printf("\n");

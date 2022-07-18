@@ -37,34 +37,35 @@ int liberaNodo(nodo_t* nodo){
     return 1;
 }
 nodo_t* sucessor(bst_t* bst, nodo_t* nodo){
+    if(!nodo->dir){
+        
+    }
     nodo = nodo->dir;
     while(nodo->esq)
         nodo = nodo->esq;
     return nodo;
 }
+
 int rmNodo(bst_t* bst, int value){
     nodo_t* aux = bst->root;
     while(aux){
-        printf("%d\n", aux->val);
         if(aux->val == value){
-            printf("achou\n");
             break;
         }
-        if(aux->val <= value){
-            printf("entrou aqui esq\n");
+        if(aux->val > value){
             aux = aux->esq;
         }
-        else if(aux->val > value){
-            printf("entrou aqui dir\n");
+        else if(aux->val <= value){
             aux = aux->dir;
         }
     }
     if(!aux){
-        printf("aa\n");
         return 0;
     }
     nodo_t* auxSuc = sucessor(bst, aux);
-    auxSuc->mom->esq = NULL;
+    
+    aux->dir->mom = auxSuc;
+    aux->esq->mom = auxSuc;
     auxSuc->mom = aux->mom;
     auxSuc->esq = aux->esq;
     auxSuc->dir = aux->dir;
