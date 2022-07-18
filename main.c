@@ -1,19 +1,20 @@
-#include "avl.h"
+#include "bst.h"
 #include <time.h>
 
 int main(){
     srand(time(0));
-    avl_t* avl = touchAVL();
+    bst_t* bst = touchBST();
 
     for(int i = 0; i < 5; i++){
-        int k = random()%10;
-        printf("%d ", k);
-        insertNodo(avl, k);
+        insertNodo(bst, i);
+    }
+    if(!rmNodo(bst, 1)){
+        printf("não encontrado\n");
     }
     printf("\n");
-    emOrdemPrint(avl->root);
+    emOrdemPrint(bst->root);
     printf("\n");
 
-    liberaAVL(avl);
+    liberaBST(bst);
     return 0;
 }
