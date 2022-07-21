@@ -1,15 +1,19 @@
-OBJ = main.o bst.o
-gps: ${OBJ}
-	gcc -o bst ${FLAGS} ${OBJ} bst.h 
+parametrosCompilacao=-std=c99 -Wall
+nomePrograma=myavl
 
-gps.o: main.c bst.h
-	gcc -c main.c ${FLAGS}
+all: $(nomePrograma)
 
-utils.o: bst.c bst.h
-	gcc -c bst.c ${FLAGS} 
+$(nomePrograma): myavl.o avl.o
+	gcc -o $(nomePrograma) myavl.o avl.o $(parametrosCompilacao)
+
+myavl.o: myavl.c
+	gcc -c myavl.c $(parametrosCompilacao)
+
+avl.o: avl.h avl.c
+	gcc -c avl.c $(parametrosCompilacao)
 
 clean:
-	rm *.o
-
-purge:
-	rm *.o bst
+	rm -f *.o *.gch $(nomePrograma)
+cleanr:
+	rm -f *.o *.gch $(nomePrograma)
+	clear
